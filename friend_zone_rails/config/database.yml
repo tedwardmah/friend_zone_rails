@@ -17,6 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  username: friend_zone_rails
+  password: <%= ENV['FRIEND_ZONE_RAILS_DATABASE_PASSWORD'] %>
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
@@ -58,6 +60,8 @@ development:
 test:
   <<: *default
   database: friend_zone_rails_test
+  username: friend_zone_rails
+  password: <%= ENV['FRIEND_ZONE_RAILS_DATABASE_PASSWORD'] %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
