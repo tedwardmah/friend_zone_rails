@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   #     end
   #
   #     collection do
-  #       get 'sold'
+  #       get 'sold'  
   #     end
   #   end
 
