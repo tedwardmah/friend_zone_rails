@@ -1,0 +1,41 @@
+<%= form_for(@playlist) do |f| %>
+  <% if @playlist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@playlist.errors.count, "error") %> prohibited this playlist from being saved:</h2>
+
+      <ul>
+      <% @playlist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :spotify_uri %><br>
+    <%= f.text_field :spotify_uri %>
+  </div>
+  <div class="field">
+    <%= f.label :snapshot_id %><br>
+    <%= f.text_field :snapshot_id %>
+  </div>
+  <div class="field">
+    <%= f.label :prior_snapshot_id %><br>
+    <%= f.text_field :prior_snapshot_id %>
+  </div>
+  <div class="field">
+    <%= f.label :collaboration_name %><br>
+    <%= f.text_field :collaboration_name %>
+  </div>
+  <div class="field">
+    <%= f.label :year %><br>
+    <%= f.text_field :year %>
+  </div>
+  <div class="field">
+    <%= f.label :month %><br>
+    <%= f.text_field :month %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

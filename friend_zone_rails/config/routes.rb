@@ -2,12 +2,14 @@ Rails.application.routes.draw do
 
   resources :songs
 
+  get 'users/login' => 'users#login'
   resources :users
 
   resources :playlists
 
   get '/' => 'users#login_page'
-  post 'users/login' => 'users#login'
+
+  get '/callback' => 'users#spotify_callback'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,34 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :spotify_user_id %><br>
+    <%= f.text_field :spotify_user_id, :readonly => true%>
+  </div>
+  <div class="field">
+    <%= f.label :access_token %><br>
+    <%= f.text_field :access_token, :readonly => true %>
+  </div>
+  <div class="field">
+    <%= f.label :refresh_token %><br>
+    <%= f.text_field :refresh_token, :readonly => true %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+    <h4 class="tooltip">Your spotify user name is chosen by default</h4>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

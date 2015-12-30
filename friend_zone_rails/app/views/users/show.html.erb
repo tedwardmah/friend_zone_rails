@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Spotify user:</strong>
+  <%= @user.spotify_user_id %>
+</p>
+
+<p>
+  <strong>Access token:</strong>
+  <%= @user.access_token %>
+</p>
+
+<p>
+  <strong>Refresh token:</strong>
+  <%= @user.refresh_token %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

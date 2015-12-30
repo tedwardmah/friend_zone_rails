@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Spotify uri:</strong>
+  <%= @playlist.spotify_uri %>
+</p>
+
+<p>
+  <strong>Snapshot:</strong>
+  <%= @playlist.snapshot_id %>
+</p>
+
+<p>
+  <strong>Prior snapshot:</strong>
+  <%= @playlist.prior_snapshot_id %>
+</p>
+
+<p>
+  <strong>Collaboration name:</strong>
+  <%= @playlist.collaboration_name %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @playlist.year %>
+</p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @playlist.month %>
+</p>
+
+<%= link_to 'Edit', edit_playlist_path(@playlist) %> |
+<%= link_to 'Back', playlists_path %>

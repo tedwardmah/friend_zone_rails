@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  spotify_uri: MyString
+  added_by_uri: MyString
+  added_by_username: MyString
+  added_by_uri: MyString
+  added_on: MyString
+
+two:
+  spotify_uri: MyString
+  added_by_uri: MyString
+  added_by_username: MyString
+  added_by_uri: MyString
+  added_on: MyString

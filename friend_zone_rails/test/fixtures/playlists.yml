@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  spotify_uri: MyString
+  snapshot_id: MyString
+  prior_snapshot_id: MyString
+  collaboration_name: MyString
+  year: MyString
+  month: MyString
+
+two:
+  spotify_uri: MyString
+  snapshot_id: MyString
+  prior_snapshot_id: MyString
+  collaboration_name: MyString
+  year: MyString
+  month: MyString
