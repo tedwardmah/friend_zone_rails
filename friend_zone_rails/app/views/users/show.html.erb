@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
   <strong>Spotify user:</strong>
   <%= @user.spotify_user_id %>
 </p>
@@ -14,35 +19,33 @@
   <strong>Refresh token:</strong>
   <%= @user.refresh_token %>
 </p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<li>
-  <table>
+<table>
+  <tr>
+    <th><!-- Image --></th>
+    <th>Playlist Name</th>
+    <th>Tracks</th>
+    <th>Id</th>
+    <th>Owned</th>
+    <th>Collaborative?</th>
+    <th><!-- Actions --></th>
+  </tr>
+  <% @playlists.each do |playlist| %>
     <tr>
-      <th><!-- Image --></th>
-      <th>Playlist Name</th>
-      <th>Tracks</th>
-      <th>Id</th>
-      <th>Owned</th>
-      <th>Collaborative?</th>
+      <td><img src="<%= playlist['images'] && playlist['images'].count > 2 ? playlist['images'][2]['url'] : ''%>" alt="playlist image"></td>
+      <td><%= playlist['name'] %></td>
+      <td><%= playlist['tracks']['total'] %></td>
+      <td><%= playlist['id'] %></td>
+      <td><%= playlist['owner']['id'] == @user.spotify_user_id ? 'Owned' : 'Followed' %></td>
+      <td><%= playlist['collaborative'] ? 'Yes' : 'No' %></td>
+      <td>
+        <a href="/playlists/<%= playlist['id'] %>">Manage Playlist</a>
+<!--         <a href="">Backup Playlist</a>
+        <a href="">Auto Archive Playlist</a> -->
+      </td>
     </tr>
-    <% @playlists.each do |playlist| %>
-      <tr>
-        <td><img src="<%= playlist['images'] && playlist['images'].count > 2 ? playlist['images'][2]['url'] : ''%>" alt="playlist image"></td>
-        <td><%= playlist['name'] %></td>
-        <td><%= playlist['tracks']['total'] %></td>
-        <td><%= playlist['id'] %></td>
-        <td><%= playlist['owner']['id'] == @user.spotify_user_id ? 'Owned' : 'Followed' %></td>
-        <td><%= playlist['collaborative'] ? 'Yes' : 'No' %></td>
-      </tr>
-    <% end %>
-    
-  </table>
-</li>
+  <% end %>
+  
+</table>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
