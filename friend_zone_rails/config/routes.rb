@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :archives
+
   resources :songs
 
   get 'users/login' => 'users#login'
