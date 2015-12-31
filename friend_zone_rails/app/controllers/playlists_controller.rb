@@ -10,6 +10,15 @@ class PlaylistsController < ApplicationController
   # GET /playlists/1
   # GET /playlists/1.json
   def show
+    playlist_link = 'https://api.spotify.com/v1/users/' + params[:owner] + '/playlists/' + params[:id]
+    spotify_playlist_data = HTTParty.get(
+        playlist_link,
+        headers: {
+          'Authorization' => 'Bearer ' + session[:access_token]
+        }
+      )
+    binding.pry
+    @songs = spotify_playlist_data['tracks']['items']
   end
 
   # GET /playlists/new
@@ -64,11 +73,11 @@ class PlaylistsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_playlist
-      @playlist = Playlist.find(params[:id])
+      @playlist = Playlist.find_by(spotify_uri: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
-      params.require(:playlist).permit(:spotify_uri, :snapshot_id, :prior_snapshot_id, :collaboration_name, :year, :month)
+      params.require(:playlist).permit(:spotify_uri, :snapshot_id, :prior_snapshot_id, :collaboration_name, :year, :month, :owner)
     end
 end

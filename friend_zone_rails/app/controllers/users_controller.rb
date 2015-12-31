@@ -96,7 +96,6 @@ class UsersController < ApplicationController
         spotify_user_id: session[:spotify_user_id],
         name: session[:name]
       })
-    delete session[:spotify_user_id]
     delete session[:name]
   end
 
@@ -177,6 +176,7 @@ class UsersController < ApplicationController
 
     def set_session_user(id)
       session[:user_id] = id || nil
+      session[:spotify_user_id] = id ? User.find(id).spotify_user_id : nil
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
