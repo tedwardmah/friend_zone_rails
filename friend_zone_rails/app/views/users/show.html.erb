@@ -20,5 +20,29 @@
   <%= @user.name %>
 </p>
 
+<li>
+  <table>
+    <tr>
+      <th><!-- Image --></th>
+      <th>Playlist Name</th>
+      <th>Tracks</th>
+      <th>Id</th>
+      <th>Owned</th>
+      <th>Collaborative?</th>
+    </tr>
+    <% @playlists.each do |playlist| %>
+      <tr>
+        <td><img src="<%= playlist['images'] && playlist['images'].count > 2 ? playlist['images'][2]['url'] : ''%>" alt="playlist image"></td>
+        <td><%= playlist['name'] %></td>
+        <td><%= playlist['tracks']['total'] %></td>
+        <td><%= playlist['id'] %></td>
+        <td><%= playlist['owner']['id'] == @user.spotify_user_id ? 'Owned' : 'Followed' %></td>
+        <td><%= playlist['collaborative'] ? 'Yes' : 'No' %></td>
+      </tr>
+    <% end %>
+    
+  </table>
+</li>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

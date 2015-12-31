@@ -22,7 +22,6 @@ class UsersController < ApplicationController
   end
 
   def spotify_callback
-    binding.pry
     ### consume spotify authorization response ###
     code = params['code']
     state = params['state']
@@ -49,8 +48,11 @@ class UsersController < ApplicationController
       body: auth_body, 
       headers: auth_headers
     )
+    reset_session
     access_token = auth_response['access_token']
     refresh_token = auth_response['refresh_token']
+    session[:access_token] = access_token
+    session[:refresh_token] = refresh_token
 
     ### User Data request preparation ###
     user_data_headers = {
@@ -60,30 +62,30 @@ class UsersController < ApplicationController
       headers: user_data_headers
     )
     user = User.find_by(spotify_user_id: spotify_user_data['id'])
-    binding.pry
     if user != nil
       set_session_user(user.id)
       redirect_to "/users/#{user.id}"
     else
-      session[:access_token] = access_token
-      session[:refresh_token] = refresh_token
       session[:spotify_user_id] = spotify_user_data['id']
       session[:name] = spotify_user_data['display_name']
 
       redirect_to "/users/new"
-      # # new_user = User.create({
-      #     access_token: access_token,
-      #     refresh_token: refresh_token,
-      #     spotify_user_id: spotify_user_data['id'],
-      #     name: spotify_user_data['display_name']
-      # #   })
-      # # redirect_to "/users/#{new_user.id}"
     end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    spotify_user_id = User.find(session[:user_id]).spotify_user_id
+    user_playlists_headers = {
+      'Authorization' => 'Bearer ' + session[:access_token]
+    }
+    spotify_playlists_response = HTTParty.get(
+        "https://api.spotify.com/v1/users/#{spotify_user_id}/playlists?limit=50",
+        headers: user_playlists_headers
+      )
+    @playlists = spotify_playlists_response['items']
+    binding.pry
   end
 
   # GET /users/new
@@ -94,6 +96,8 @@ class UsersController < ApplicationController
         spotify_user_id: session[:spotify_user_id],
         name: session[:name]
       })
+    delete session[:spotify_user_id]
+    delete session[:name]
   end
 
   # GET /users/1/edit
@@ -146,16 +150,32 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
       if session[:user_id] != @user.id
-        binding.pry
         reset_session
         redirect_to '/'
       end
+    end
 
+    def refresh_token
+      client_id = ENV['FRIEND_ZONE_CLIENT_ID']
+      client_secret = ENV['FRIEND_ZONE_CLIENT_SECRET']
+      token_refresh_headers = {
+        'Authorization' => "Basic #{Base64.strict_encode64(client_id + ':' + client_secret)}"
+      }
+      token_refresh_body = {
+        'grant_type' => 'refresh_token',
+        'refresh_token' => session[:refresh_token]
+      }
+      spotify_token_response = HTTParty.post(
+        'https://accounts.spotify.com/api/token',
+        body: token_refresh_body,
+        headers: token_refresh_headers
+        )
+      binding.pry
+      session[:access_token] = spotify_token_response[:access_token]
+      binding.pry
     end
 
     def set_session_user(id)
-      binding.pry
-      reset_session
       session[:user_id] = id || nil
     end
 
