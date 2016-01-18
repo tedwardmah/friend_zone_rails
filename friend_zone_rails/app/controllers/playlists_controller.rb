@@ -17,8 +17,13 @@ class PlaylistsController < ApplicationController
           'Authorization' => 'Bearer ' + session[:access_token]
         }
       )
-    binding.pry
+    @spotify_playlist = {
+      name: spotify_playlist_data['name'],
+      snapshot_id: spotify_playlist_data['snapshot_id']
+    }
+    @backup_playlist = Playlist.find_by(spotify_uri: params['id'])
     @songs = spotify_playlist_data['tracks']['items']
+    binding.pry
   end
 
   # GET /playlists/new

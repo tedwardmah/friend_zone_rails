@@ -85,7 +85,6 @@ class UsersController < ApplicationController
         headers: user_playlists_headers
       )
     @playlists = spotify_playlists_response['items']
-    binding.pry
   end
 
   # GET /users/new
