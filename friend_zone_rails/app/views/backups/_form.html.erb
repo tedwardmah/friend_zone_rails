@@ -1,0 +1,45 @@
+<%= form_for(@backup) do |f| %>
+  <% if @backup.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@backup.errors.count, "error") %> prohibited this backup from being saved:</h2>
+
+      <ul>
+      <% @backup.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :spotify_uri %><br>
+    <%= f.text_field :spotify_uri %>
+  </div>
+  <div class="field">
+    <%= f.label :snapshot_id %><br>
+    <%= f.text_field :snapshot_id %>
+  </div>
+  <div class="field">
+    <%= f.label :collaboration_name %><br>
+    <%= f.text_field :collaboration_name %>
+  </div>
+  <div class="field">
+    <%= f.label :year %><br>
+    <%= f.text_field :year %>
+  </div>
+  <div class="field">
+    <%= f.label :month %><br>
+    <%= f.text_field :month %>
+  </div>
+  <div class="field">
+    <%= f.label :is_archive_backup %><br>
+    <%= f.check_box :is_archive_backup %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

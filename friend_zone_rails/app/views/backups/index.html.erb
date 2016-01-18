@@ -1,0 +1,37 @@
+<h1>Listing backups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Spotify uri</th>
+      <th>Snapshot</th>
+      <th>Collaboration name</th>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Is archive backup</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @backups.each do |backup| %>
+      <tr>
+        <td><%= backup.name %></td>
+        <td><%= backup.spotify_uri %></td>
+        <td><%= backup.snapshot_id %></td>
+        <td><%= backup.collaboration_name %></td>
+        <td><%= backup.year %></td>
+        <td><%= backup.month %></td>
+        <td><%= backup.is_archive_backup %></td>
+        <td><%= link_to 'Show', backup %></td>
+        <td><%= link_to 'Edit', edit_backup_path(backup) %></td>
+        <td><%= link_to 'Destroy', backup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Backup', new_backup_path %>

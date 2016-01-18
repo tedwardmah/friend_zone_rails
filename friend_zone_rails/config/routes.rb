@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :backups
+
   resources :archives
 
   resources :songs

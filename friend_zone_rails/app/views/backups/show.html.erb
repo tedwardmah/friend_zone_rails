@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @backup.name %>
+</p>
+
+<p>
+  <strong>Spotify uri:</strong>
+  <%= @backup.spotify_uri %>
+</p>
+
+<p>
+  <strong>Snapshot:</strong>
+  <%= @backup.snapshot_id %>
+</p>
+
+<p>
+  <strong>Collaboration name:</strong>
+  <%= @backup.collaboration_name %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @backup.year %>
+</p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @backup.month %>
+</p>
+
+<p>
+  <strong>Is archive backup:</strong>
+  <%= @backup.is_archive_backup %>
+</p>
+
+<%= link_to 'Edit', edit_backup_path(@backup) %> |
+<%= link_to 'Back', backups_path %>
