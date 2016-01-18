@@ -4,12 +4,14 @@ Rails.application.routes.draw do
 
   resources :archives
 
-  resources :songs
+  # resources :songs
 
   get 'users/login' => 'users#login'
   resources :users
 
-  resources :playlists
+  resources :playlists do
+    resources :songs, shallow: true
+  end
 
   get '/' => 'users#login_page'
 
