@@ -153,7 +153,7 @@ class UsersController < ApplicationController
       end
     end
 
-    def refresh_token
+    def get_new_refresh_token
       client_id = ENV['FRIEND_ZONE_CLIENT_ID']
       client_secret = ENV['FRIEND_ZONE_CLIENT_SECRET']
       token_refresh_headers = {
