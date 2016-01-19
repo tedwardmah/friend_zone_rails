@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'users/login' => 'users#login'
   resources :users
 
+  get 'playlists/lookup' => 'playlists#lookup'
   resources :playlists do
     resources :songs, shallow: true
   end

@@ -13,28 +13,37 @@
 
   <div class="field">
     <%= f.label :spotify_uri %><br>
-    <%= f.text_field :spotify_uri %>
+    <%= f.text_field :spotify_uri, :readonly => true %>
   </div>
   <div class="field">
     <%= f.label :snapshot_id %><br>
-    <%= f.text_field :snapshot_id %>
-  </div>
-  <div class="field">
-    <%= f.label :prior_snapshot_id %><br>
-    <%= f.text_field :prior_snapshot_id %>
+    <%= f.text_field :snapshot_id, :readonly => true %>
   </div>
   <div class="field">
     <%= f.label :collaboration_name %><br>
     <%= f.text_field :collaboration_name %>
   </div>
   <div class="field">
-    <%= f.label :year %><br>
-    <%= f.text_field :year %>
+    <%= f.label :owner %><br>
+    <%= f.text_field :owner, :readonly => true %>
   </div>
   <div class="field">
-    <%= f.label :month %><br>
-    <%= f.text_field :month %>
+    <%= radio_button_tag(:rolloff_frequency, "fortyfive") %>
+    <%= label_tag(:rolloff_frequency_fortyfive, "Roll off songs after 45 days") %>
+    <%= radio_button_tag(:rolloff_frequency, "thirty") %>
+    <%= label_tag(:rolloff_frequency_thirty, "Roll off songs after 30 days") %>
+    <%= radio_button_tag(:rolloff_frequency, "fifteen") %>
+    <%= label_tag(:rolloff_frequency_fifteen, "Roll off songs after 15 days") %>
+    <%= radio_button_tag(:rolloff_frequency, "none") %>
+    <%= label_tag(:rolloff_frequency_none, "Do not roll off any songs") %>
   </div>
+  <div class="field">
+    <%= radio_button_tag(:repeats_allowed, "true") %>
+    <%= label_tag(:repeats_allowed_true, "Repeats are allowed") %>
+    <%= radio_button_tag(:repeats_allowed, "false") %>
+    <%= label_tag(:repeats_allowed_false, "Don't allow the same song to be added twice") %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -7,10 +7,12 @@ class PlaylistsController < ApplicationController
     @playlists = Playlist.all
   end
 
-  # GET /playlists/1
-  # GET /playlists/1.json
-  def show
-    playlist_link = 'https://api.spotify.com/v1/users/' + params[:owner] + '/playlists/' + params[:id]
+  def lookup
+    fz_playlist = Playlist.find_by(spotify_uri: params[:spotify_uri])
+    if fz_playlist
+      redirect_to fz_playlist
+    end
+    playlist_link = 'https://api.spotify.com/v1/users/' + params[:owner] + '/playlists/' + params[:spotify_uri]
     spotify_playlist_data = HTTParty.get(
         playlist_link,
         headers: {
@@ -20,10 +22,31 @@ class PlaylistsController < ApplicationController
     @spotify_playlist = {
       name: spotify_playlist_data['name'],
       snapshot_id: spotify_playlist_data['snapshot_id'],
-      spotify_uri: params['id'],
+      spotify_uri: params[:spotify_uri],
       owner_id: params[:owner]
     }
-    @fz_playlist = Playlist.find_by(spotify_uri: params['id'])
+    @songs = spotify_playlist_data['tracks']['items']
+
+  end
+
+  # GET /playlists/1
+  # GET /playlists/1.json
+  def show
+    @fz_playlist = Playlist.find(params[:id])
+    
+    playlist_link = 'https://api.spotify.com/v1/users/' + @fz_playlist[:owner] + '/playlists/' + @fz_playlist[:spotify_uri]
+    spotify_playlist_data = HTTParty.get(
+        playlist_link,
+        headers: {
+          'Authorization' => 'Bearer ' + session[:access_token]
+        }
+      )
+    @spotify_playlist = {
+      name: spotify_playlist_data['name'],
+      snapshot_id: spotify_playlist_data['snapshot_id'],
+      spotify_uri: @fz_playlist[:spotify_uri],
+      owner_id: @fz_playlist[:owner]
+    }
     @songs = spotify_playlist_data['tracks']['items']
     binding.pry
   end
@@ -37,7 +60,13 @@ class PlaylistsController < ApplicationController
           'Authorization' => 'Bearer ' + session[:access_token]
         }
       )
-    @playlist = Playlist.new
+    @playlist = Playlist.new({
+      spotify_uri: params[:id],
+      snapshot_id: spotify_playlist_data['snapshot_id'],
+      user_id: session[:user_id],
+      owner: params[:owner],
+      repeats_allowed: false
+    })
     binding.pry
   end
 
@@ -93,6 +122,6 @@ class PlaylistsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def playlist_params
-      params.require(:playlist).permit(:spotify_uri, :snapshot_id, :prior_snapshot_id, :collaboration_name, :year, :month, :owner)
+      params.require(:playlist).permit(:spotify_uri, :snapshot_id, :collaboration_name, :owner, :repeats_allowed, :rolloff_frequency)
     end
 end

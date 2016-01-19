@@ -38,7 +38,7 @@
       <td><%= playlist['owner']['id'] == @user.spotify_user_id ? 'Owned' : 'Followed' %></td>
       <td><%= playlist['collaborative'] ? 'Yes' : 'No' %></td>
       <td>
-        <a href="/playlists/<%= playlist['id'] %>?owner=<%= playlist['owner']['id'] %>">Manage Playlist</a>
+        <a href="/playlists/lookup?owner=<%= playlist['owner']['id'] %>&spotify_uri=<%= playlist['id'] %>">Manage Playlist</a>
 <!--         <a href="">Backup Playlist</a>
         <a href="">Auto Archive Playlist</a> -->
       </td>
