@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160118203223) do
+ActiveRecord::Schema.define(version: 20160119002024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,13 +44,13 @@ ActiveRecord::Schema.define(version: 20160118203223) do
   create_table "playlists", force: true do |t|
     t.string   "spotify_uri"
     t.string   "snapshot_id"
-    t.string   "prior_snapshot_id"
     t.string   "collaboration_name"
-    t.string   "year"
-    t.string   "month"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "rolloff_frequency"
+    t.string   "owner"
+    t.boolean  "repeats_allowed"
   end
 
   create_table "songs", force: true do |t|

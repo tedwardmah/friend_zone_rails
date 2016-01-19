@@ -19,16 +19,26 @@ class PlaylistsController < ApplicationController
       )
     @spotify_playlist = {
       name: spotify_playlist_data['name'],
-      snapshot_id: spotify_playlist_data['snapshot_id']
+      snapshot_id: spotify_playlist_data['snapshot_id'],
+      spotify_uri: params['id'],
+      owner_id: params[:owner]
     }
-    @backup_playlist = Playlist.find_by(spotify_uri: params['id'])
+    @fz_playlist = Playlist.find_by(spotify_uri: params['id'])
     @songs = spotify_playlist_data['tracks']['items']
     binding.pry
   end
 
   # GET /playlists/new
   def new
+    playlist_link = 'https://api.spotify.com/v1/users/' + params[:owner] + '/playlists/' + params[:id]
+    spotify_playlist_data = HTTParty.get(
+        playlist_link,
+        headers: {
+          'Authorization' => 'Bearer ' + session[:access_token]
+        }
+      )
     @playlist = Playlist.new
+    binding.pry
   end
 
   # GET /playlists/1/edit
