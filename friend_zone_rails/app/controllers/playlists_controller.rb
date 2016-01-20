@@ -62,7 +62,6 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.new({
       spotify_uri: params[:id],
       snapshot_id: spotify_playlist_data['snapshot_id'],
-      user_id: session[:user_id],
       owner: params[:owner],
       repeats_allowed: false
     })
@@ -75,7 +74,10 @@ class PlaylistsController < ApplicationController
   # POST /playlists
   # POST /playlists.json
   def create
-    @playlist = Playlist.new(playlist_params)
+    # need to use current user's id here to create the playlist
+    new_playlist_data = playlist_params
+    new_playlist_data[:user_id] = session[:user_id]
+    @playlist = Playlist.new(new_playlist_data)
 
     respond_to do |format|
       if @playlist.save
@@ -115,7 +117,7 @@ class PlaylistsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_playlist
-      @playlist = Playlist.find_by(spotify_uri: params[:id])
+      @playlist = Playlist.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
