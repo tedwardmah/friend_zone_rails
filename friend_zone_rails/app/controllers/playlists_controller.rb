@@ -104,6 +104,11 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  # GET /playlists/deleteConfirm
+  def delete_confirm
+    @playlist = Playlist.find(params[:playlist_id])
+  end
+
   # DELETE /playlists/1
   # DELETE /playlists/1.json
   def destroy

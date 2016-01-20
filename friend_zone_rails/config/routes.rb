@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :users
 
   get 'playlists/lookup' => 'playlists#lookup'
+  get 'playlists/deleteConfirm' => 'playlists#delete_confirm'
   resources :playlists do
     resources :songs, shallow: true
   end
