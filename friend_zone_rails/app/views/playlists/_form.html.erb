@@ -27,22 +27,26 @@
     <%= f.label :owner %><br>
     <%= f.text_field :owner, :readonly => true %>
   </div>
+
+<!-- This should be used somewhere else, during radio station enroll -->
+<!--   <p>How many days of history should we maintain?</p>
   <div class="field">
     <%= radio_button_tag(:rolloff_frequency, "fortyfive") %>
-    <%= label_tag(:rolloff_frequency_fortyfive, "Roll off songs after 45 days") %>
+    <%= label_tag(:rolloff_frequency_fortyfive, "Archive songs added more than 45 days ago") %><br>
     <%= radio_button_tag(:rolloff_frequency, "thirty") %>
-    <%= label_tag(:rolloff_frequency_thirty, "Roll off songs after 30 days") %>
+    <%= label_tag(:rolloff_frequency_thirty, "Archive songs added more than 30 days ago") %><br>
     <%= radio_button_tag(:rolloff_frequency, "fifteen") %>
-    <%= label_tag(:rolloff_frequency_fifteen, "Roll off songs after 15 days") %>
+    <%= label_tag(:rolloff_frequency_fifteen, "Archive songs added more than 15 days ago") %><br>
     <%= radio_button_tag(:rolloff_frequency, "none") %>
-    <%= label_tag(:rolloff_frequency_none, "Do not roll off any songs") %>
+    <%= label_tag(:rolloff_frequency_none, "Don't automatically") %><br>
   </div>
+  <p>Would you like to allow duplicated songs in this archive? If not, your archive will only contain one copy of any duplicate tracks.</p>
   <div class="field">
     <%= radio_button_tag(:repeats_allowed, "true") %>
-    <%= label_tag(:repeats_allowed_true, "Repeats are allowed") %>
+    <%= label_tag(:repeats_allowed_true, "Duplicates are allowed") %><br>
     <%= radio_button_tag(:repeats_allowed, "false") %>
-    <%= label_tag(:repeats_allowed_false, "Don't allow the same song to be added twice") %>
-  </div>
+    <%= label_tag(:repeats_allowed_false, "Don't allow the same song to be added twice") %><br>
+  </div> -->
 
   <div class="actions">
     <%= f.submit %>
