@@ -48,7 +48,6 @@ class PlaylistsController < ApplicationController
       owner_id: @fz_playlist[:owner]
     }
     @songs = spotify_playlist_data['tracks']['items']
-    binding.pry
   end
 
   # GET /playlists/new
@@ -67,7 +66,6 @@ class PlaylistsController < ApplicationController
       owner: params[:owner],
       repeats_allowed: false
     })
-    binding.pry
   end
 
   # GET /playlists/1/edit

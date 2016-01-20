@@ -11,7 +11,7 @@
   </tr>
   <% @songs.each_with_index do |song, idx| %>
     <tr>
-      <td><%= idx %></td>
+      <td><%= idx + 1 %></td>
       <td><%= song['track']['name'] %></td>
     </tr>
   <% end %>

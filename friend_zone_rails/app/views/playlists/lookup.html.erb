@@ -2,6 +2,8 @@
 <h1><%= @spotify_playlist[:name] %></h1>
 <h4>Snapshot Id<%= @spotify_playlist[:snapshot_id] %></h4>
 
+
+<!-- should probably just be a link_to -->
 <%= link_to_unless(@fz_playlist, "Add this playlist to FZ tracking", { action: "new", id: @spotify_playlist[:spotify_uri], owner: @spotify_playlist[:owner_id] }) %>
 
 <table>
@@ -11,7 +13,7 @@
   </tr>
   <% @songs.each_with_index do |song, idx| %>
     <tr>
-      <td><%= idx %></td>
+      <td><%= idx + 1%></td>
       <td><%= song['track']['name'] %></td>
     </tr>
   <% end %>

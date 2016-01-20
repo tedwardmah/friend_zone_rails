@@ -5,10 +5,7 @@
     <tr>
       <th>Spotify uri</th>
       <th>Snapshot</th>
-      <th>Prior snapshot</th>
       <th>Collaboration name</th>
-      <th>Year</th>
-      <th>Month</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,10 +15,7 @@
       <tr>
         <td><%= playlist.spotify_uri %></td>
         <td><%= playlist.snapshot_id %></td>
-        <td><%= playlist.prior_snapshot_id %></td>
         <td><%= playlist.collaboration_name %></td>
-        <td><%= playlist.year %></td>
-        <td><%= playlist.month %></td>
         <td><%= link_to 'Show', playlist %></td>
         <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
         <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
